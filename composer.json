@@ -1,0 +1,49 @@
+{
+    "name": "duncan3dc/sonos-cloud",
+    "type": "library",
+    "description": "Use the official Sonos API to control your speakers",
+    "keywords": ["sonos", "api"],
+    "homepage": "https://github.com/duncan3dc/sonos-cloud",
+    "license": "Apache-2.0",
+    "authors": [{
+        "name": "Craig Duncan",
+        "email": "git@duncanc.co.uk",
+        "homepage": "https://github.com/duncan3dc",
+        "role": "Developer"
+    }],
+    "require": {
+        "duncan3dc/cache": "^0.6.1",
+        "duncan3dc/sonos-common": "^0.2.0",
+        "guzzlehttp/guzzle": "^6.3",
+        "guzzlehttp/psr7": "^1.4",
+        "league/oauth2-client": "^2.3",
+        "psr/http-message": "^1.0.1",
+        "psr/simple-cache": "^1.0",
+        "ext-json": "*",
+        "php": "^7.1"
+    },
+    "require-dev": {
+        "maglnet/composer-require-checker": "^1.1",
+        "mockery/mockery": "^1.2",
+        "phpstan/phpstan": "^0.10.5",
+        "phpstan/phpstan-mockery": "^0.10.2",
+        "phpstan/phpstan-phpunit": "^0.10.0",
+        "squizlabs/php_codesniffer": "^3.3.2",
+        "phpunit/phpunit": "^7.3"
+    },
+    "autoload": {
+        "psr-4": {"duncan3dc\\Sonos\\Cloud\\": "src/"}
+    },
+    "autoload-dev": {
+        "psr-4": {"duncan3dc\\Sonos\\CloudTests\\": "tests/"}
+    },
+    "scripts": {
+        "test": [
+            "vendor/bin/phpunit",
+            "vendor/bin/composer-require-checker",
+            "vendor/bin/phpstan analyse --level=max src",
+            "vendor/bin/phpstan analyse --level=max --configuration=phpstan-tests.neon tests",
+            "vendor/bin/phpcs --standard=PSR1,PSR2,PSR12 src tests"
+        ]
+    }
+}
