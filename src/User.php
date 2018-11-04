@@ -4,6 +4,7 @@ namespace duncan3dc\Sonos\Cloud;
 
 use duncan3dc\Sonos\Cloud\Exceptions\AuthenticationException;
 use duncan3dc\Sonos\Cloud\Interfaces\ApiInterface;
+use duncan3dc\Sonos\Cloud\Interfaces\HouseholdInterface;
 use duncan3dc\Sonos\Cloud\Interfaces\UserInterface;
 use League\OAuth2\Client\Token\AccessToken;
 use Psr\SimpleCache\CacheInterface;
@@ -107,5 +108,26 @@ final class User implements UserInterface
     public function request(string $method, string $url, array $data = []): \stdClass
     {
         return $this->api->request($method, $url, $data, $this->getToken());
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getHouseholds(): iterable
+    {
+        $data = $this->request("GET", "households");
+        foreach ($data->households as $household) {
+            yield new Household($household->id, $this);
+        }
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getHousehold(string $id): HouseholdInterface
+    {
+        return new Household($id, $this);
     }
 }

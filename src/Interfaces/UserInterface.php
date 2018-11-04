@@ -26,4 +26,20 @@ interface UserInterface extends ClientInterface
      * @return void
      */
     public function setCode(string $code): void;
+
+    /**
+     * Get all the households this user has access to.
+     *
+     * @return iterable|HouseholdInterface[]
+     */
+    public function getHouseholds(): iterable;
+
+    /**
+     * Get a household this user has access to.
+     *
+     * @param string $id
+     *
+     * @return HouseholdInterface
+     */
+    public function getHousehold(string $id): HouseholdInterface;
 }
