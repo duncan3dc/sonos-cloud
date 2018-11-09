@@ -50,4 +50,82 @@ final class Player implements PlayerInterface
     {
         return $this->room;
     }
+
+
+    /**
+     * Get the current volume of this speaker.
+     *
+     * @return int The current volume between 0 and 100
+     */
+    public function getVolume(): int
+    {
+        return (int) $this->api->request("GET", "players/{$this->id}/playerVolume")->volume;
+    }
+
+
+    /**
+     * Adjust the volume of this speaker to a specific value.
+     *
+     * @param int $volume The amount to set the volume to between 0 and 100
+     *
+     * @return void
+     */
+    public function setVolume(int $volume): void
+    {
+        $this->api->request("POST", "players/{$this->id}/playerVolume", [
+            "volume" => $volume,
+        ]);
+    }
+
+
+    /**
+     * Adjust the volume of this speaker by a relative amount.
+     *
+     * @param int $adjust The amount to adjust by between -100 and 100
+     *
+     * @return void
+     */
+    public function adjustVolume(int $adjust): void
+    {
+        $this->api->request("POST", "players/{$this->id}/playerVolume/relative", [
+            "volumeDelta" => $adjust,
+        ]);
+    }
+
+
+    /**
+     * Check if this speaker is currently muted.
+     *
+     * @return bool
+     */
+    public function isMuted(): bool
+    {
+        return (bool) $this->api->request("GET", "players/{$this->id}/playerVolume")->muted;
+    }
+
+
+    /**
+     * Mute this speaker.
+     *
+     * @return void
+     */
+    public function mute(): void
+    {
+        $this->api->request("POST", "players/{$this->id}/playerVolume/mute", [
+            "muted" => true,
+        ]);
+    }
+
+
+    /**
+     * Unmute this speaker.
+     *
+     * @return void
+     */
+    public function unmute(): void
+    {
+        $this->api->request("POST", "players/{$this->id}/playerVolume/mute", [
+            "muted" => false,
+        ]);
+    }
 }
