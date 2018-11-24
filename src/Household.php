@@ -4,6 +4,7 @@ namespace duncan3dc\Sonos\Cloud;
 
 use duncan3dc\Cache\ArrayPool;
 use duncan3dc\Sonos\Cloud\Interfaces\ClientInterface;
+use duncan3dc\Sonos\Cloud\Interfaces\GroupInterface;
 use duncan3dc\Sonos\Cloud\Interfaces\HouseholdInterface;
 use duncan3dc\Sonos\Cloud\Interfaces\PlayerInterface;
 use duncan3dc\Sonos\Common\Exceptions\NotFoundException;
@@ -58,6 +59,25 @@ final class Household implements HouseholdInterface
     /**
      * @inheritDoc
      */
+    public function reload(): HouseholdInterface
+    {
+        $this->cache->delete("data");
+        return $this;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
     public function getPlayers(): iterable
     {
         foreach ($this->getData()->players as $data) {
@@ -89,5 +109,35 @@ final class Household implements HouseholdInterface
         }
 
         throw new NotFoundException("Unable to find a player for the room '{$room}'");
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getGroups(): iterable
+    {
+        foreach ($this->getData()->groups as $data) {
+            yield new Group($data->id, $data->name, $this, $this->api);
+        }
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getGroupByRoom(string $room): GroupInterface
+    {
+        $player = $this->getPlayerByRoom($room);
+
+        foreach ($this->getData()->groups as $data) {
+            foreach ($data->playerIds as $id) {
+                if ($player->getId() === $id) {
+                    return new Group($data->id, $data->name, $this, $this->api);
+                }
+            }
+        }
+
+        throw new NotFoundException("Unable to find a group for the room '{$room}'");
     }
 }
