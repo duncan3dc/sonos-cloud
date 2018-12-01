@@ -13,7 +13,7 @@
     }],
     "require": {
         "duncan3dc/cache": "^0.6.1",
-        "duncan3dc/sonos-common": "^0.2.0",
+        "duncan3dc/sonos-common": "^0.3.0",
         "guzzlehttp/guzzle": "^6.3",
         "guzzlehttp/psr7": "^1.4",
         "league/oauth2-client": "~2.3.0",

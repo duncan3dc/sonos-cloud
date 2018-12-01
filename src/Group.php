@@ -5,7 +5,8 @@ namespace duncan3dc\Sonos\Cloud;
 use duncan3dc\Sonos\Cloud\Interfaces\ClientInterface;
 use duncan3dc\Sonos\Cloud\Interfaces\GroupInterface;
 use duncan3dc\Sonos\Cloud\Interfaces\HouseholdInterface;
-use duncan3dc\Sonos\Cloud\Interfaces\PlayerInterface;
+use duncan3dc\Sonos\Common\Interfaces\GroupInterface as CommonInterface;
+use duncan3dc\Sonos\Common\Interfaces\PlayerInterface;
 
 /**
  * Allows interaction with the groups of speakers.
@@ -62,7 +63,7 @@ final class Group implements GroupInterface
     /**
      * @inheritDoc
      */
-    public function play(): GroupInterface
+    public function play(): CommonInterface
     {
         $this->api->request("POST", "groups/{$this->id}/playback/play");
         return $this;
@@ -72,7 +73,7 @@ final class Group implements GroupInterface
     /**
      * @inheritDoc
      */
-    public function pause(): GroupInterface
+    public function pause(): CommonInterface
     {
         $this->api->request("POST", "groups/{$this->id}/playback/pause");
         return $this;
@@ -109,7 +110,7 @@ final class Group implements GroupInterface
     /**
      * @inheritDoc
      */
-    public function addPlayer(PlayerInterface $player): GroupInterface
+    public function addPlayer(PlayerInterface $player): CommonInterface
     {
         $this->api->request("POST", "groups/{$this->id}/groups/modifyGroupMembers", [
             "playerIdsToAdd" => [$player->getId()],
@@ -124,7 +125,7 @@ final class Group implements GroupInterface
     /**
      * @inheritDoc
      */
-    public function removePlayer(PlayerInterface $player): GroupInterface
+    public function removePlayer(PlayerInterface $player): CommonInterface
     {
         $this->api->request("POST", "groups/{$this->id}/groups/modifyGroupMembers", [
             "playerIdsToRemove" => [$player->getId()],

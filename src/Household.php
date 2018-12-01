@@ -4,10 +4,10 @@ namespace duncan3dc\Sonos\Cloud;
 
 use duncan3dc\Cache\ArrayPool;
 use duncan3dc\Sonos\Cloud\Interfaces\ClientInterface;
-use duncan3dc\Sonos\Cloud\Interfaces\GroupInterface;
 use duncan3dc\Sonos\Cloud\Interfaces\HouseholdInterface;
-use duncan3dc\Sonos\Cloud\Interfaces\PlayerInterface;
 use duncan3dc\Sonos\Common\Exceptions\NotFoundException;
+use duncan3dc\Sonos\Common\Interfaces\GroupInterface;
+use duncan3dc\Sonos\Common\Interfaces\PlayerInterface;
 use Psr\SimpleCache\CacheInterface;
 
 final class Household implements HouseholdInterface
