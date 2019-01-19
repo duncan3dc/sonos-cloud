@@ -59,4 +59,52 @@ interface GroupInterface
      * @return $this
      */
     public function removePlayer(PlayerInterface $player): self;
+
+    /**
+     * Check if repeat is currently active.
+     *
+     * @return bool
+     */
+    public function getRepeat(): bool;
+
+    /**
+     * Turn repeat mode on or off.
+     *
+     * @param bool $repeat Whether repeat should be on or not
+     *
+     * @return $this
+     */
+    public function setRepeat(bool $repeat): self;
+
+    /**
+     * Check if shuffle is currently active.
+     *
+     * @return bool
+     */
+    public function getShuffle(): bool;
+
+    /**
+     * Turn shuffle mode on or off.
+     *
+     * @param bool $shuffle Whether shuffle should be on or not
+     *
+     * @return $this
+     */
+    public function setShuffle(bool $shuffle): self;
+
+    /**
+     * Check if crossfade is currently active.
+     *
+     * @return bool
+     */
+    public function getCrossfade(): bool;
+
+    /**
+     * Turn crossfade on or off.
+     *
+     * @param bool $crossfade Whether crossfade should be on or not
+     *
+     * @return $this
+     */
+    public function setCrossfade(bool $crossfade): self;
 }

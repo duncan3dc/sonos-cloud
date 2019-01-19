@@ -129,4 +129,150 @@ class GroupTest extends TestCase
         $result = $this->group->removePlayer($player);
         $this->assertSame($this->group, $result);
     }
+
+
+    public function testGetRepeat1()
+    {
+        $this->api->shouldReceive("request")->once()->with("GET", "groups/GROUP_1/playback")->andReturn([
+            "playModes" => [
+                "repeat" => false,
+            ],
+        ]);
+        $result = $this->group->getRepeat();
+        $this->assertSame(false, $result);
+    }
+
+
+    public function testGetRepeat2()
+    {
+        $this->api->shouldReceive("request")->once()->with("GET", "groups/GROUP_1/playback")->andReturn([
+            "playModes" => [
+                "repeat" => true,
+            ],
+        ]);
+        $result = $this->group->getRepeat();
+        $this->assertSame(true, $result);
+    }
+
+
+    public function testSetRepeat1()
+    {
+        $this->api->shouldReceive("request")->once()->with("POST", "groups/GROUP_1/playback/playMode", [
+            "playModes" => [
+                "repeat" => true,
+                "repeatOne" => false,
+            ],
+        ]);
+        $result = $this->group->setRepeat(true);
+        $this->assertSame($this->group, $result);
+    }
+
+
+    public function testSetRepeat2()
+    {
+        $this->api->shouldReceive("request")->once()->with("POST", "groups/GROUP_1/playback/playMode", [
+            "playModes" => [
+                "repeat" => false,
+                "repeatOne" => false,
+            ],
+        ]);
+        $result = $this->group->setRepeat(false);
+        $this->assertSame($this->group, $result);
+    }
+
+
+    public function testGetShuffle1()
+    {
+        $this->api->shouldReceive("request")->once()->with("GET", "groups/GROUP_1/playback")->andReturn([
+            "playModes" => [
+                "shuffle" => false,
+            ],
+        ]);
+        $result = $this->group->getShuffle();
+        $this->assertSame(false, $result);
+    }
+
+
+    public function testGetShuffle2()
+    {
+        $this->api->shouldReceive("request")->once()->with("GET", "groups/GROUP_1/playback")->andReturn([
+            "playModes" => [
+                "shuffle" => true,
+            ],
+        ]);
+        $result = $this->group->getShuffle();
+        $this->assertSame(true, $result);
+    }
+
+
+    public function testSetShuffle1()
+    {
+        $this->api->shouldReceive("request")->once()->with("POST", "groups/GROUP_1/playback/playMode", [
+            "playModes" => [
+                "shuffle" => true,
+            ],
+        ]);
+        $result = $this->group->setShuffle(true);
+        $this->assertSame($this->group, $result);
+    }
+
+
+    public function testSetShuffle2()
+    {
+        $this->api->shouldReceive("request")->once()->with("POST", "groups/GROUP_1/playback/playMode", [
+            "playModes" => [
+                "shuffle" => false,
+            ],
+        ]);
+        $result = $this->group->setShuffle(false);
+        $this->assertSame($this->group, $result);
+    }
+
+
+    public function testGetCrossfade1()
+    {
+        $this->api->shouldReceive("request")->once()->with("GET", "groups/GROUP_1/playback")->andReturn([
+            "playModes" => [
+                "crossfade" => false,
+            ],
+        ]);
+        $result = $this->group->getCrossfade();
+        $this->assertSame(false, $result);
+    }
+
+
+    public function testGetCrossfade2()
+    {
+        $this->api->shouldReceive("request")->once()->with("GET", "groups/GROUP_1/playback")->andReturn([
+            "playModes" => [
+                "crossfade" => true,
+            ],
+        ]);
+        $result = $this->group->getCrossfade();
+        $this->assertSame(true, $result);
+    }
+
+
+    public function testSetCrossfade1()
+    {
+        $this->api->shouldReceive("request")->once()->with("POST", "groups/GROUP_1/playback/playMode", [
+            "playModes" => [
+                "crossfade" => true,
+            ],
+        ]);
+        $result = $this->group->setCrossfade(true);
+        $this->assertSame($this->group, $result);
+    }
+
+
+    public function testSetCrossfade2()
+    {
+        $this->api->shouldReceive("request")->once()->with("POST", "groups/GROUP_1/playback/playMode", [
+            "playModes" => [
+                "crossfade" => false,
+            ],
+        ]);
+        $result = $this->group->setCrossfade(false);
+        $this->assertSame($this->group, $result);
+    }
 }

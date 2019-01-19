@@ -134,4 +134,83 @@ final class Group implements GroupInterface
 
         return $this;
     }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getRepeat(): bool
+    {
+        $status = $this->api->request("GET", "groups/{$this->id}/playback");
+
+        return $status["playModes"]["repeat"];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function setRepeat(bool $repeat): GroupInterface
+    {
+        $this->api->request("POST", "groups/{$this->id}/playback/playMode", [
+            "playModes" => [
+                "repeat" => $repeat,
+                "repeatOne" => false,
+            ],
+        ]);
+
+        return $this;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getShuffle(): bool
+    {
+        $status = $this->api->request("GET", "groups/{$this->id}/playback");
+
+        return $status["playModes"]["shuffle"];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function setShuffle(bool $shuffle): GroupInterface
+    {
+        $this->api->request("POST", "groups/{$this->id}/playback/playMode", [
+            "playModes" => [
+                "shuffle" => $shuffle,
+            ],
+        ]);
+
+        return $this;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getCrossfade(): bool
+    {
+        $status = $this->api->request("GET", "groups/{$this->id}/playback");
+
+        return $status["playModes"]["crossfade"];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function setCrossfade(bool $crossfade): GroupInterface
+    {
+        $this->api->request("POST", "groups/{$this->id}/playback/playMode", [
+            "playModes" => [
+                "crossfade" => $crossfade,
+            ],
+        ]);
+
+        return $this;
+    }
 }
