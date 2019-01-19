@@ -8,6 +8,7 @@ use duncan3dc\Sonos\Cloud\Interfaces\ApiInterface;
 use duncan3dc\Sonos\Cloud\Interfaces\UserInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\RequestException;
 use League\OAuth2\Client\Token\AccessToken;
 use Psr\SimpleCache\CacheInterface;
 use function count;
@@ -94,6 +95,19 @@ final class Api implements ApiInterface
 
         if (json_last_error() !== \JSON_ERROR_NONE) {
             throw new ApiException(json_last_error_msg(), json_last_error());
+        }
+
+        if (!empty($result["errorCode"])) {
+            $error = $result["errorCode"];
+            if (!empty($result["reason"])) {
+                $error .= ": " . $result["reason"];
+            }
+            throw new ApiException($error);
+        }
+
+        if ($response->getStatusCode() > 399) {
+            $exception = RequestException::create($request, $response);
+            throw new ApiException($exception->getMessage(), $exception->getCode(), $exception);
         }
 
         return $result;
