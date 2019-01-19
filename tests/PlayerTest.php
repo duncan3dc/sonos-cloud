@@ -52,7 +52,7 @@ class PlayerTest extends TestCase
             ->shouldReceive("request")
             ->once()
             ->with("GET", "players/RINCON_5CAAFD976D5801400/playerVolume")
-            ->andReturn((object) [
+            ->andReturn([
                 "volume" => 70,
             ]);
 
@@ -90,7 +90,7 @@ class PlayerTest extends TestCase
             ->shouldReceive("request")
             ->once()
             ->with("GET", "players/RINCON_5CAAFD976D5801400/playerVolume")
-            ->andReturn((object) [
+            ->andReturn([
                 "muted" => 0,
             ]);
 
@@ -102,7 +102,7 @@ class PlayerTest extends TestCase
             ->shouldReceive("request")
             ->once()
             ->with("GET", "players/RINCON_5CAAFD976D5801400/playerVolume")
-            ->andReturn((object) [
+            ->andReturn([
                 "muted" => 1,
             ]);
 

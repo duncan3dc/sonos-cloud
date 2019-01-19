@@ -75,15 +75,15 @@ class GroupTest extends TestCase
             new Player("PLAYER_3", "Spare Room", $this->api),
         ]);
 
-        $data = (object) [
+        $data = [
             "groups" => [
-                (object) [
+                [
                     "id" => "GROUP_1",
                     "name" => "Bedroom + 1",
                     "coordinatorId" => "PLAYER_1",
                     "playerIds" => ["PLAYER_1", "PLAYER_3"],
                 ],
-                (object) [
+                [
                     "id" => "GROUP_2",
                     "name" => "Office",
                     "coordinatorId" => "PLAYER_2",

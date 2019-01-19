@@ -31,9 +31,9 @@ interface ApiInterface
      * @param array $data The parameters to send with the request
      * @param AccessToken $token The access token for authorisation
      *
-     * @return \stdClass
+     * @return array
      */
-    public function request(string $method, string $url, array $data, AccessToken $token): \stdClass;
+    public function request(string $method, string $url, array $data, AccessToken $token): array;
 
     /**
      * Get a user instance.

@@ -76,7 +76,7 @@ final class Api implements ApiInterface
     /**
      * @inheritDoc
      */
-    public function request(string $method, string $url, array $data, AccessToken $token): \stdClass
+    public function request(string $method, string $url, array $data, AccessToken $token): array
     {
         $url = "https://api.ws.sonos.com/control/api/v1/{$url}";
 
@@ -90,7 +90,7 @@ final class Api implements ApiInterface
 
         $response = $this->client->send($request);
 
-        $result = json_decode((string) $response->getBody());
+        $result = json_decode((string) $response->getBody(), true);
 
         if (json_last_error() !== \JSON_ERROR_NONE) {
             throw new ApiException(json_last_error_msg(), json_last_error());

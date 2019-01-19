@@ -59,7 +59,7 @@ final class Player implements PlayerInterface
      */
     public function getVolume(): int
     {
-        return (int) $this->api->request("GET", "players/{$this->id}/playerVolume")->volume;
+        return (int) $this->api->request("GET", "players/{$this->id}/playerVolume")["volume"];
     }
 
 
@@ -100,7 +100,7 @@ final class Player implements PlayerInterface
      */
     public function isMuted(): bool
     {
-        return (bool) $this->api->request("GET", "players/{$this->id}/playerVolume")->muted;
+        return (bool) $this->api->request("GET", "players/{$this->id}/playerVolume")["muted"];
     }
 
 

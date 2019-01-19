@@ -105,7 +105,7 @@ final class User implements UserInterface
     /**
      * @inheritDoc
      */
-    public function request(string $method, string $url, array $data = []): \stdClass
+    public function request(string $method, string $url, array $data = []): array
     {
         return $this->api->request($method, $url, $data, $this->getToken());
     }
@@ -117,8 +117,8 @@ final class User implements UserInterface
     public function getHouseholds(): iterable
     {
         $data = $this->request("GET", "households");
-        foreach ($data->households as $household) {
-            yield new Household($household->id, $this);
+        foreach ($data["households"] as $household) {
+            yield new Household($household["id"], $this);
         }
     }
 

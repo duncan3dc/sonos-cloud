@@ -43,9 +43,9 @@ class HouseholdTest extends TestCase
 
     public function testReload()
     {
-        $data = (object) [
+        $data = [
             "players" => [
-                (object) ["id" => "PLAYER_1", "name" => "Bedroom"],
+                ["id" => "PLAYER_1", "name" => "Bedroom"],
             ],
         ];
         $this->api->shouldReceive("request")->twice()->with("GET", "households/HOUSEHOLD_1/groups")->andReturn($data);
@@ -65,9 +65,9 @@ class HouseholdTest extends TestCase
 
     public function testGetPlayers()
     {
-        $data = (object) [
+        $data = [
             "players" => [
-                (object) ["id" => "PLAYER_1", "name" => "Bedroom"],
+                ["id" => "PLAYER_1", "name" => "Bedroom"],
             ],
         ];
         $this->api->shouldReceive("request")->once()->with("GET", "households/HOUSEHOLD_1/groups")->andReturn($data);
@@ -83,11 +83,11 @@ class HouseholdTest extends TestCase
 
     public function testGetPlayersByRoom()
     {
-        $data = (object) [
+        $data = [
             "players" => [
-                (object) ["id" => "PLAYER_1", "name" => "Bedroom"],
-                (object) ["id" => "PLAYER_2", "name" => "Office"],
-                (object) ["id" => "PLAYER_3", "name" => "Bedroom"],
+                ["id" => "PLAYER_1", "name" => "Bedroom"],
+                ["id" => "PLAYER_2", "name" => "Office"],
+                ["id" => "PLAYER_3", "name" => "Bedroom"],
             ],
         ];
         $this->api->shouldReceive("request")->once()->with("GET", "households/HOUSEHOLD_1/groups")->andReturn($data);
@@ -109,10 +109,10 @@ class HouseholdTest extends TestCase
 
     public function testGetPlayerByRoom1()
     {
-        $data = (object) [
+        $data = [
             "players" => [
-                (object) ["id" => "PLAYER_1", "name" => "Bedroom"],
-                (object) ["id" => "PLAYER_2", "name" => "Office"],
+                ["id" => "PLAYER_1", "name" => "Bedroom"],
+                ["id" => "PLAYER_2", "name" => "Office"],
             ],
         ];
         $this->api->shouldReceive("request")->once()->with("GET", "households/HOUSEHOLD_1/groups")->andReturn($data);
@@ -125,10 +125,10 @@ class HouseholdTest extends TestCase
     }
     public function testGetPlayerByRoom2()
     {
-        $data = (object) [
+        $data = [
             "players" => [
-                (object) ["id" => "PLAYER_1", "name" => "Bedroom"],
-                (object) ["id" => "PLAYER_2", "name" => "Office"],
+                ["id" => "PLAYER_1", "name" => "Bedroom"],
+                ["id" => "PLAYER_2", "name" => "Office"],
             ],
         ];
         $this->api->shouldReceive("request")->once()->with("GET", "households/HOUSEHOLD_1/groups")->andReturn($data);
@@ -141,21 +141,21 @@ class HouseholdTest extends TestCase
 
     public function testGetGroups()
     {
-        $data = (object) [
+        $data = [
             "players" => [
-                (object) ["id" => "PLAYER_1", "name" => "Bedroom"],
-                (object) ["id" => "PLAYER_2", "name" => "Office"],
-                (object) ["id" => "PLAYER_3", "name" => "Spare Room"],
+                ["id" => "PLAYER_1", "name" => "Bedroom"],
+                ["id" => "PLAYER_2", "name" => "Office"],
+                ["id" => "PLAYER_3", "name" => "Spare Room"],
             ],
             "groups" => [
-                (object) [
+                [
                     "id" => "GROUP_1",
                     "name" => "Bedroom + 1",
                     "coordinatorId" => "PLAYER_1",
                     "playbackState" => "PLAYBACK_STATE_IDLE",
                     "playerIds" => ["PLAYER_1", "PLAYER_3"],
                 ],
-                (object) [
+                [
                     "id" => "GROUP_2",
                     "name" => "Office",
                     "coordinatorId" => "PLAYER_2",
@@ -177,13 +177,13 @@ class HouseholdTest extends TestCase
 
     public function testGetGroupByRoom1()
     {
-        $data = (object) [
+        $data = [
             "players" => [
-                (object) ["id" => "PLAYER_1", "name" => "Bedroom"],
-                (object) ["id" => "PLAYER_2", "name" => "Office"],
+                ["id" => "PLAYER_1", "name" => "Bedroom"],
+                ["id" => "PLAYER_2", "name" => "Office"],
             ],
             "groups" => [
-                (object) [
+                [
                     "id" => "GROUP_1",
                     "name" => "Bedroom + 1",
                     "coordinatorId" => "PLAYER_1",
@@ -202,13 +202,13 @@ class HouseholdTest extends TestCase
     }
     public function testGetGroupByRoom2()
     {
-        $data = (object) [
+        $data = [
             "players" => [
-                (object) ["id" => "PLAYER_1", "name" => "Bedroom"],
-                (object) ["id" => "PLAYER_2", "name" => "Office"],
+                ["id" => "PLAYER_1", "name" => "Bedroom"],
+                ["id" => "PLAYER_2", "name" => "Office"],
             ],
             "groups" => [
-                (object) [
+                [
                     "id" => "GROUP_1",
                     "name" => "Bedroom",
                     "coordinatorId" => "PLAYER_1",

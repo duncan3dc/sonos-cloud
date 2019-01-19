@@ -43,9 +43,9 @@ final class Household implements HouseholdInterface
     /**
      * Get the data for this household.
      *
-     * @return \stdClass
+     * @return array
      */
-    private function getData(): \stdClass
+    private function getData(): array
     {
         if (!$this->cache->has("data")) {
             $data = $this->api->request("GET", "households/{$this->id}/groups");
@@ -80,8 +80,8 @@ final class Household implements HouseholdInterface
      */
     public function getPlayers(): iterable
     {
-        foreach ($this->getData()->players as $data) {
-            yield new Player($data->id, $data->name, $this->api);
+        foreach ($this->getData()["players"] as $data) {
+            yield new Player($data["id"], $data["name"], $this->api);
         }
     }
 
@@ -117,8 +117,8 @@ final class Household implements HouseholdInterface
      */
     public function getGroups(): iterable
     {
-        foreach ($this->getData()->groups as $data) {
-            yield new Group($data->id, $data->name, $this, $this->api);
+        foreach ($this->getData()["groups"] as $data) {
+            yield new Group($data["id"], $data["name"], $this, $this->api);
         }
     }
 
@@ -130,10 +130,10 @@ final class Household implements HouseholdInterface
     {
         $player = $this->getPlayerByRoom($room);
 
-        foreach ($this->getData()->groups as $data) {
-            foreach ($data->playerIds as $id) {
+        foreach ($this->getData()["groups"] as $data) {
+            foreach ($data["playerIds"] as $id) {
                 if ($player->getId() === $id) {
-                    return new Group($data->id, $data->name, $this, $this->api);
+                    return new Group($data["id"], $data["name"], $this, $this->api);
                 }
             }
         }

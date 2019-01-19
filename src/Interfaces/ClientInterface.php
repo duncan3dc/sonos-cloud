@@ -11,7 +11,7 @@ interface ClientInterface
      * @param string $url The endpoint to send the request to
      * @param array $data Any additional data to send with the request
      *
-     * @return \stdClass
+     * @return array
      */
-    public function request(string $method, string $url, array $data = []): \stdClass;
+    public function request(string $method, string $url, array $data = []): array;
 }

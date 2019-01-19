@@ -89,12 +89,12 @@ final class Group implements GroupInterface
 
         $players = $this->household->getPlayers();
 
-        foreach ($data->groups as $group) {
-            if ($group->id !== $this->id) {
+        foreach ($data["groups"] as $group) {
+            if ($group["id"] !== $this->id) {
                 continue;
             }
 
-            foreach ($group->playerIds as $id) {
+            foreach ($group["playerIds"] as $id) {
                 foreach ($players as $player) {
                     if ($player->getId() === $id) {
                         yield $player;
