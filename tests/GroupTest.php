@@ -7,6 +7,7 @@ use duncan3dc\Sonos\Cloud\Interfaces\ClientInterface;
 use duncan3dc\Sonos\Cloud\Interfaces\GroupInterface;
 use duncan3dc\Sonos\Cloud\Interfaces\HouseholdInterface;
 use duncan3dc\Sonos\Cloud\Player;
+use duncan3dc\Sonos\Common\Utils\Time;
 use Mockery;
 use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
@@ -62,6 +63,58 @@ class GroupTest extends TestCase
     {
         $this->api->shouldReceive("request")->once()->with("POST", "groups/GROUP_1/playback/pause");
         $result = $this->group->pause();
+        $this->assertSame($this->group, $result);
+    }
+
+
+    public function isPlayingProvider()
+    {
+        $states = [
+            "PLAYBACK_STATE_BUFFERING" => false,
+            "PLAYBACK_STATE_IDLE" => false,
+            "PLAYBACK_STATE_PAUSED" => false,
+            "PLAYBACK_STATE_PLAYING" => true,
+        ];
+        foreach ($states as $state => $playing) {
+            yield [$state, $playing];
+        }
+    }
+    /**
+     * @dataProvider isPlayingProvider
+     */
+    public function testIsPlaying(string $state, bool $expected)
+    {
+        $this->api->shouldReceive("request")->once()->with("GET", "groups/GROUP_1/playback")->andReturn([
+            "playbackState" => $state,
+        ]);
+        $actual = $this->group->isPlaying();
+        $this->assertSame($expected, $actual);
+    }
+
+
+    public function testNext1()
+    {
+        $this->api->shouldReceive("request")->once()->with("POST", "groups/GROUP_1/playback/skipToNextTrack");
+        $result = $this->group->next();
+        $this->assertSame($this->group, $result);
+    }
+
+
+    public function testPrevious1()
+    {
+        $this->api->shouldReceive("request")->once()->with("POST", "groups/GROUP_1/playback/skipToPreviousTrack");
+        $result = $this->group->previous();
+        $this->assertSame($this->group, $result);
+    }
+
+
+    public function testSeek1()
+    {
+        $this->api->shouldReceive("request")->once()->with("POST", "groups/GROUP_1/playback/seek", [
+            "positionMillis" => 65000,
+        ]);
+        $time = Time::parse("1:05");
+        $result = $this->group->seek($time);
         $this->assertSame($this->group, $result);
     }
 

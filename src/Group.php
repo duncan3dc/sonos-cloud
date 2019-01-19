@@ -6,6 +6,7 @@ use duncan3dc\Sonos\Cloud\Interfaces\ClientInterface;
 use duncan3dc\Sonos\Cloud\Interfaces\GroupInterface;
 use duncan3dc\Sonos\Cloud\Interfaces\HouseholdInterface;
 use duncan3dc\Sonos\Cloud\Interfaces\PlayerInterface;
+use duncan3dc\Sonos\Common\Interfaces\Utils\TimeInterface;
 
 /**
  * Allows interaction with the groups of speakers.
@@ -75,6 +76,52 @@ final class Group implements GroupInterface
     public function pause(): GroupInterface
     {
         $this->api->request("POST", "groups/{$this->id}/playback/pause");
+        return $this;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function isPlaying(): bool
+    {
+        $status = $this->api->request("GET", "groups/{$this->id}/playback");
+
+        return $status["playbackState"] === "PLAYBACK_STATE_PLAYING";
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function next(): GroupInterface
+    {
+        $this->api->request("POST", "groups/{$this->id}/playback/skipToNextTrack");
+
+        return $this;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function previous(): GroupInterface
+    {
+        $this->api->request("POST", "groups/{$this->id}/playback/skipToPreviousTrack");
+
+        return $this;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function seek(TimeInterface $position): GroupInterface
+    {
+        $this->api->request("POST", "groups/{$this->id}/playback/seek", [
+            "positionMillis" => $position->asInt() * 1000,
+        ]);
+
         return $this;
     }
 

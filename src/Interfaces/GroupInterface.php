@@ -2,6 +2,8 @@
 
 namespace duncan3dc\Sonos\Cloud\Interfaces;
 
+use duncan3dc\Sonos\Common\Interfaces\Utils\TimeInterface;
+
 /**
  * Allows interaction with the groups of speakers.
  */
@@ -34,6 +36,36 @@ interface GroupInterface
      * @return $this
      */
     public function pause(): self;
+
+    /**
+     * Check if this group is playing music or not.
+     *
+     * @return bool
+     */
+    public function isPlaying(): bool;
+
+    /**
+     * Skip to the next track in the current queue.
+     *
+     * @return $this
+     */
+    public function next(): self;
+
+    /**
+     * Skip back to the previous track in the current queue.
+     *
+     * @return $this
+     */
+    public function previous(): self;
+
+    /**
+     * Seeks to a specific position within the current track.
+     *
+     * @param TimeInterface $position The position to seek to in the track
+     *
+     * @return $this
+     */
+    public function seek(TimeInterface $position): self;
 
     /**
      * Get the speakers that are in this group.
